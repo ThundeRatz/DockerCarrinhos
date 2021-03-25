@@ -38,7 +38,7 @@ RUN apt-get install -q -y \
 RUN apt-get update && apt-get install git -y
 # clone gzweb
 RUN cd ~; \
-    git clone https://bitbucket.org/osrf/gzweb \
+    hg clone https://bitbucket.org/osrf/gzweb \
 RUN cd ~/gzweb \
     hg up gzweb_1.4.0 \
     ./deploy.sh -m
