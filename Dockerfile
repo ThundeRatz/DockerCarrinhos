@@ -34,32 +34,31 @@ RUN apt-get update && apt-get install -q -y \
     && rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update && apt-get install git -y
+
+################
+
+RUN cd ~ &&  \
+    mkdir -p ./projetoCarrinho/src && \
+    cd ./projetoCarrinho/src && \
+    git clone --branch feature/gzweb https://github.com/ThundeRatz/gazebo_modelo_carrinho.git && \
+    cd ~/projetoCarrinho/ && \
+    . /opt/ros/noetic/setup.sh && \
+    catkin_make
+
+RUN . /usr/share/gazebo/setup.sh
+
+ENV GAZEBO_MODEL_PATH /usr/share/gazebo-11/models:~/projetoCarrinho/src/gazebo_modelo_carrinho/models
+ENV GAZEBO_RESOURCE_PATH /usr/share/gazebo-11:~/projetoCarrinho/src/gazebo_modelo_carrinho
+
 # clone gzweb
-RUN cd ~; \
-    git clone https://github.com/osrf/gzweb
-RUN cd ~/gzweb \
-    git checkout gzweb_1.4.0 \
-    ./deploy.sh -m
+RUN cd ~ && \
+    git clone --branch feature/split https://github.com/FelipeGdM/gzweb.git &&  \
+    cd ~/gzweb && \
+    npm install && \
+    mkdir -p build && \
+    npm run update && \
+    GAZEBO_MODEL_PATH=~/projetoCarrinho/src/gazebo_modelo_carrinho/models ./deploy.sh -m local
 
 # setup environment
 EXPOSE 8080
 EXPOSE 7681
-
-# make a missing folder
-CMD mkdir /root/gzweb/http/client/assets
-# download models & assets
-# CMD cd /root/gzweb && ./deploy.sh -m -t
-# CMD cd ~ && \
-#     mkdir projetoCarrinho && \
-#     cd projetoCarrinho && \
-#     mkdir src && \
-#     cd src && \
-#     git clone https://github.com/ThundeRatz/gazebo_modelo_carrinho.git && \
-#     cd ~/projetoCarrinho/ &&\
-#     catkin_make
-
-#CMD GAZEBO_MODEL_PATH=projetoCarrinho roslaunch roslaunch modelo_carrinho gazebo.launch gui:=false
-
-# run gzserver and gzweb
-#CMD cd /root/gzweb && ./start_gzweb.sh && npm start
-#CMD gzserver
