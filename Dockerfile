@@ -1,17 +1,14 @@
 # derived from http://github.com/osrf/docker_images/blob/master/gazebo/gazebo7/gzweb7/Dockerfile
 # install ros packages
-FROM osrf/ros:noetic-desktop-full
-WORKDIR /root/ros/
+FROM osrf/ros:noetic-desktop-focal
 
-
+# install ros packages
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ros-noetic-desktop-full=1.5.0-1* \
+    && rm -rf /var/lib/apt/lists/*
 RUN apt-get update && apt-get install -q -y ros-noetic-hector-gazebo-plugins
 RUN apt-get update && apt install -y ros-noetic-velocity-controllers python-pygame
 # RUN apt-get update && apt-get install git -y
-
-
-FROM gazebo:libgazebo11-bionic
-WORKDIR /root/
-COPY --from=0 root/ros/ .
 
 # install packages
 RUN apt-get update && apt-get upgrade -y && apt-get install -q -y \
