@@ -9,12 +9,12 @@ RUN apt-get update && apt install -y ros-noetic-velocity-controllers python-pyga
 # RUN apt-get update && apt-get install git -y
 
 
-FROM gazebo:libgazebo7
+FROM gazebo:libgazebo11-bionic
 WORKDIR /root/
-COPY --from=0 /root/ros/ .
+COPY --from=0 root/ros/ .
 
 # install packages
-RUN apt-get update && apt-get upgrade -q -y && apt-get install -q -y \
+RUN apt-get update && apt-get upgrade -y && apt-get install -q -y \
     build-essential \
     cmake \
     imagemagick \
@@ -23,24 +23,25 @@ RUN apt-get update && apt-get upgrade -q -y && apt-get install -q -y \
     libjansson-dev \
     libtinyxml-dev \
     mercurial \
-    nodejs \
-    nodejs-legacy \
-    npm \
     pkg-config \
-    psmisc\
+    psmisc \
+    xvfb \
     && rm -rf /var/lib/apt/lists/*
 
 # install gazebo packages
-RUN apt-get install -q -y \
-    libgazebo7-dev \
+RUN apt-get update && apt-get install -q -y \
+    curl \
+    && curl -sL https://deb.nodesource.com/setup_10.x | bash - \
+    && apt-get install -q -y nodejs nodejs-legacy \
+    libgazebo11-dev=11.3.0-1* \
     && rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update && apt-get install git -y
 # clone gzweb
 RUN cd ~; \
-    hg clone https://bitbucket.org/osrf/gzweb \
+    git clone https://github.com/osrf/gzweb
 RUN cd ~/gzweb \
-    hg up gzweb_1.4.0 \
+    git checkout gzweb_1.4.0 \
     ./deploy.sh -m
 
 # setup environment
@@ -50,16 +51,15 @@ EXPOSE 7681
 # make a missing folder
 CMD mkdir /root/gzweb/http/client/assets
 # download models & assets
-CMD cd /root/gzweb && ./deploy.sh -m -t
-
-CMD cd ~; && \
-    mkdir projetoCarrinho && \
-    cd projetoCarrinho && \
-    mkdir src && \
-    cd src && \
-    git clone https://github.com/ThundeRatz/gazebo_modelo_carrinho.git && \
-    cd /projetoCarrinho/ &&\
-    catkin_make
+# CMD cd /root/gzweb && ./deploy.sh -m -t
+# CMD cd ~ && \
+#     mkdir projetoCarrinho && \
+#     cd projetoCarrinho && \
+#     mkdir src && \
+#     cd src && \
+#     git clone https://github.com/ThundeRatz/gazebo_modelo_carrinho.git && \
+#     cd ~/projetoCarrinho/ &&\
+#     catkin_make
 
 #CMD GAZEBO_MODEL_PATH=projetoCarrinho roslaunch roslaunch modelo_carrinho gazebo.launch gui:=false
 
