@@ -2,16 +2,8 @@
 # install ros packages
 FROM osrf/ros:noetic-desktop-focal
 
-# install ros packages
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    ros-noetic-desktop-full=1.5.0-1* \
-    && rm -rf /var/lib/apt/lists/*
-RUN apt-get update && apt-get install -q -y ros-noetic-hector-gazebo-plugins
-RUN apt-get update && apt install -y ros-noetic-velocity-controllers python-pygame
-# RUN apt-get update && apt-get install git -y
-
 # install packages
-RUN apt-get update && apt-get upgrade -y && apt-get install -q -y \
+RUN apt update && apt upgrade -y && apt install -q -y \
     build-essential \
     cmake \
     imagemagick \
@@ -23,20 +15,19 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -q -y \
     pkg-config \
     psmisc \
     xvfb \
-    && rm -rf /var/lib/apt/lists/*
-
-# install gazebo packages
-RUN apt-get update && apt-get install -q -y \
     curl \
-    && curl -sL https://deb.nodesource.com/setup_10.x | bash - \
-    && apt-get install -q -y nodejs nodejs-legacy \
+    git \
+    ros-noetic-velocity-controllers python-pygame \
     libgazebo11-dev=11.3.0-1* \
     && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && apt-get install git -y
+# install node v12.x
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
+    && apt update && apt install -q -y nodejs nodejs-legacy \
+    && rm -rf /var/lib/apt/lists/*
 
 ################
-
+# clone and setup project
 RUN cd ~ &&  \
     mkdir -p ./projetoCarrinho/src && \
     cd ./projetoCarrinho/src && \
