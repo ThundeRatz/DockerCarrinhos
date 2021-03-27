@@ -4,7 +4,7 @@ Para abrir o Docker:
 
 ```bash
 docker build -t dockercarrinhos .
-docker run -it -p 7681:7681 -p 8080:8080 dockercarrinhos /bin/bash
+docker run -it -p 7681:7681 -p 8080:8080 dockercarrinhos
 ```
 
 Para abrir um projeto:
