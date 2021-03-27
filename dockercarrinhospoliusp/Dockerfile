@@ -16,7 +16,6 @@ RUN apt update -y && apt install -q -y \
     libgts-dev \
     libjansson-dev \
     libtinyxml-dev \
-    mercurial \
     pkg-config \
     psmisc \
     xvfb \
