@@ -1,24 +1,23 @@
 # DockerCarrinhos
+
 Para abrir o Docker:
-```
+
+```bash
 docker build -t dockercarrinhos .
-docker run -it -p 7681:7681 -p 8080:8080 dockercarrinhos /bin/bash
+docker run -it -p 7681:7681 -p 8080:8080 dockercarrinhos
 ```
-Para abrir o gzweb:
-```
-cd /root/gzweb && ./start_gzweb.sh && npm start
-gzserver
-```
+
 Para abrir um projeto:
+
+```bash
+source /root/projetoCarrinho/devel/setup.bash && \    
+roslaunch modelo_carrinho gazebo.launch gui:=false
 ```
-cd ~; && \
-    mkdir projetoCarrinho && \
-    cd projetoCarrinho && \
-    mkdir src && \
-    cd src && \
-    git clone https://github.com/ThundeRatz/gazebo_modelo_carrinho.git && \
-    cd /projetoCarrinho/ &&\
-    catkin_make
-    
-GAZEBO_MODEL_PATH=projetoCarrinho roslaunch roslaunch modelo_carrinho gazebo.launch gui:=false
+
+e para abrir o gzweb, digite em um novo terminal:
+
+```bash
+cd /root/gzweb && npm start
 ```
+
+Para ver seu projeto, basta entrar em ```http://localhost:8080/```

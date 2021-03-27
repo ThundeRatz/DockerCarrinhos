@@ -1,32 +1,5 @@
-# derived from http://github.com/osrf/docker_images/blob/master/gazebo/gazebo7/gzweb7/Dockerfile
-# install ros packages
-FROM osrf/ros:noetic-desktop-focal
+FROM thunderatz/carrinho_deps:latest
 
-# install packages
-RUN apt update && apt upgrade -y && apt install -q -y \
-    build-essential \
-    cmake \
-    imagemagick \
-    libboost-all-dev \
-    libgts-dev \
-    libjansson-dev \
-    libtinyxml-dev \
-    mercurial \
-    pkg-config \
-    psmisc \
-    xvfb \
-    curl \
-    git \
-    ros-noetic-velocity-controllers python-pygame \
-    libgazebo11-dev=11.3.0-1* \
-    && rm -rf /var/lib/apt/lists/*
-
-# install node v12.x
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
-    && apt update && apt install -q -y nodejs nodejs-legacy \
-    && rm -rf /var/lib/apt/lists/*
-
-################
 # clone and setup project
 RUN cd ~ &&  \
     mkdir -p ./projetoCarrinho/src && \
@@ -53,3 +26,7 @@ RUN cd ~ && \
 # setup environment
 EXPOSE 8080
 EXPOSE 7681
+
+COPY run.sh ~/run.sh
+
+CMD ["bash", "~/run.sh"]
