@@ -26,3 +26,7 @@ RUN cd ~ && \
 # setup environment
 EXPOSE 8080
 EXPOSE 7681
+
+COPY run.sh ~/run.sh
+
+CMD ["bash", "~/run.sh"]

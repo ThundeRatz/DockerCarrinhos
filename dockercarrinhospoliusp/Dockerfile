@@ -16,12 +16,12 @@ RUN apt update -y && apt install -q -y \
     libgts-dev \
     libjansson-dev \
     libtinyxml-dev \
-    mercurial \
     pkg-config \
     psmisc \
     xvfb \
     curl \
     git \
+    screen \
     ros-noetic-velocity-controllers python-pygame \
     libgazebo11-dev=11.3.0-1* \
     && rm -rf /var/lib/apt/lists/*
