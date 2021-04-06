@@ -4,7 +4,7 @@ FROM thunderatz/carrinho_deps:latest
 RUN cd ~ &&  \
     mkdir -p ./projetoCarrinho/src && \
     cd ./projetoCarrinho/src && \
-    git clone --branch feature/gzweb https://github.com/ThundeRatz/gazebo_modelo_carrinho.git && \
+    git clone https://github.com/ThundeRatz/gazebo_modelo_carrinho.git && \
     cd ~/projetoCarrinho/ && \
     . /opt/ros/noetic/setup.sh && \
     catkin_make
