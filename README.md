@@ -1,23 +1,15 @@
 # DockerCarrinhos
 
-Para abrir o Docker:
+Para iniciar o projeto, digite
 
 ```bash
-docker build -t dockercarrinhos .
-docker run -it -p 7681:7681 -p 8080:8080 dockercarrinhos
+docker-compose up
 ```
 
-Para abrir um projeto:
+Ao terminar, não esqueça de executar o comando
 
 ```bash
-source /root/projetoCarrinho/devel/setup.bash && \    
-roslaunch modelo_carrinho gazebo.launch gui:=false
-```
-
-e para abrir o gzweb, digite em um novo terminal:
-
-```bash
-cd /root/gzweb && npm start
+docker-compose down
 ```
 
 Para ver seu projeto, basta entrar em ```http://localhost:8080/```
