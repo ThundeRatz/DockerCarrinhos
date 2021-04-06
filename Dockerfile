@@ -16,7 +16,7 @@ ENV GAZEBO_RESOURCE_PATH /usr/share/gazebo-11:~/projetoCarrinho/src/gazebo_model
 
 # clone gzweb
 RUN cd ~ && \
-    git clone --branch feature/split https://github.com/FelipeGdM/gzweb.git &&  \
+    git clone https://github.com/FelipeGdM/gzweb.git &&  \
     cd ~/gzweb && \
     npm install && \
     mkdir -p build && \
