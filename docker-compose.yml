@@ -1,0 +1,10 @@
+version: "3.7"
+
+services:
+  carrinhos:
+    container_name: carrinhos
+    build: .
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+      - 7681:7681
