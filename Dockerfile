@@ -1,14 +1,14 @@
 FROM thunderatz/carrinho_deps:latest
 
+
 # clone and setup project
 RUN cd ~ &&  \
-    mkdir -p ./projetoCarrinho/src && \
+    mkdir -p ./projetoCarrinho/src && \	
+    cd ./projetoCarrinho/src && \	
+    git clone https://github.com/ThundeRatz/gazebo_modelo_carrinho.git && \	
+    cd ~/projetoCarrinho/ && \	
     . /opt/ros/noetic/setup.sh && \
     catkin_make
-
-WORKDIR /root/projetoCarrinho/src/
-
-COPY /projeto_carrinho .
 
 RUN . /usr/share/gazebo/setup.sh
 
