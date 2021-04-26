@@ -8,3 +8,5 @@ services:
     ports:
       - 8080:8080
       - 7681:7681
+    volumes:
+      - ./projeto_carrinho:/root/projetoCarrinho/src/
